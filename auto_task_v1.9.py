@@ -6,7 +6,7 @@ from threading import Thread,Lock,current_thread
 import requests
 from bs4 import BeautifulSoup
 
-import winsound
+
 
 
 
@@ -130,16 +130,13 @@ def get_tasks_async_2(n):
             flash_global[n]['times'] += 1
             ar_times = flash_global[n]['times']
             if result['yes'] >= 1:
-                play_sound('auto_music.wav')
+                play_('auto_music.wav')
 
             print('【线程%s】已经完成%s次搜寻!此次发现了%s个任务，结果：' % (n+1,ar_times,len(tasks)), result)
         except BaseException:
             print('【线程%s】出了点错误哟，已经重启线程' % str(n+1))
 
 
-def play_sound(wav):
-    thr = Thread(target=winsound.PlaySound, args=(wav,winsound.SND_NODEFAULT,))
-    thr.start()
 
 
 
@@ -156,7 +153,7 @@ if __name__ == '__main__':
         print('程序错误！！即将退出！！')
     else:
 
-        play_sound('auto_music.wav')
+        
         config = ConfigParser()
         config.read('key_info.cfg')
         user = zb.User('', '')
