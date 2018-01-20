@@ -6,7 +6,7 @@ from threading import Thread, Lock, current_thread
 import requests
 from bs4 import BeautifulSoup
 
-import winsound
+
 
 
 def login_input():
@@ -91,8 +91,7 @@ def tasks_async(n, m, page_num, href, index_type):
                 soup = BeautifulSoup(res.content, 'html.parser')
                 tasks = user.get_tasks(soup, index_type)
                 result = user.tasks_filter_accept(tasks, s_price_round, counts_round, price_round)
-            if result['yes'] >= 1:
-                play_sound('auto_music.wav')
+
             print('【页面线程%s-%s】正在进行中，获取到%s个任务，已经进行%s次搜寻' % (n + 1, m + 1, len(tasks), ar_time), result)
         except BaseException as e:
             print('【错误】本次搜寻出了点错误哦，已经重启线程。%s ' % e)
@@ -133,8 +132,8 @@ def get_tasks_async_2(n):
             result = user.tasks_filter_accept(tasks, s_price_round, counts_round, price_round)
             flash_global[n]['times'] += 1
             ar_times = flash_global[n]['times']
-            if result['yes'] >= 1:
-                play_sound('auto_music.wav')
+
+
 
             print('【线程%s】已经完成%s次搜寻!此次发现了%s个任务，结果：' % (n + 1, ar_times, len(tasks)), result)
         except BaseException:
@@ -143,9 +142,7 @@ def get_tasks_async_2(n):
 
 # mode 2
 
-def play_sound(wav):
-    thr = Thread(target=winsound.PlaySound, args=(wav, winsound.SND_NODEFAULT,))
-    thr.start()
+
 
 
 if __name__ == '__main__':
@@ -161,7 +158,7 @@ if __name__ == '__main__':
         print('程序错误！！即将退出！！')
     else:
 
-        play_sound('auto_music.wav')
+
         config = ConfigParser()
         config.read('key_info.cfg')
         user = zb.User('', '')
